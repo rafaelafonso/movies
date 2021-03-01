@@ -18,14 +18,20 @@ struct HomeView: View {
                         MovieCellView(movie: movie)
                     }
                     .background(Color.gray.opacity(0.3))
-                    .cornerRadius(8.0)
+                    .cornerRadius(8.0)                    
                 }
                 .onDelete(perform: { indexSet in
                     modelData.movies.remove(atOffsets: indexSet)
                 })
+                .onMove { (source, destination) in
+                    modelData.movies.move(fromOffsets: source, toOffset: destination)
+                }
             }
             .navigationTitle("Top Movies")
             .padding(.top, 8)
+            .toolbar {
+                EditButton()
+            }
         }
     }
 }

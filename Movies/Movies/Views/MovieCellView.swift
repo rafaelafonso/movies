@@ -19,7 +19,7 @@ struct MovieCellView: View {
                 Text(movie.fullTitle)
                     .bold()
                 Text("Rating: \(movie.imDbRating)")
-            }
+            }            
         }
     }
 }
