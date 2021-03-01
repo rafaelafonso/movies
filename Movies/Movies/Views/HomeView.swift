@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var modelData: ModelData
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
+        NavigationView {
+            List {
+                ForEach(modelData.movies, id: \.self) { movie in
+                    NavigationLink(destination: DetailView(movie: movie)) {
+                        MovieCellView(movie: movie)
+                    }
+                    .background(Color.gray.opacity(0.3))
+                    .cornerRadius(8.0)
+                }
+                .onDelete(perform: { indexSet in
+                    modelData.movies.remove(atOffsets: indexSet)
+                })
+            }
+            .navigationTitle("Top Movies")
+            .padding(.top, 8)
+        }
     }
 }
