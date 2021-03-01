@@ -8,13 +8,51 @@
 import SwiftUI
 
 struct DetailView: View {
+    var movie: Movie
+    @State private var imageUp = true
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            ScrollView {
+                VStack {
+                    if imageUp {
+                        DetailImageView(movie: movie)
+                        DetailInfoView(movie: movie)
+                    }
+                    else {
+                        DetailInfoView(movie: movie)
+                        DetailImageView(movie: movie)
+                    }
+                }
+            }
+            .navigationTitle(movie.title)
+            .toolbar {
+                Toggle("", isOn: $imageUp)
+            }
+        }
     }
 }
 
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView()
+struct DetailImageView: View {
+    var movie: Movie
+    
+    var body: some View {
+        MovieImageView(withImage: movie.image)
+            .aspectRatio(contentMode: .fill)
+    }
+}
+
+struct DetailInfoView: View {
+    var movie: Movie
+ 
+    var body: some View {
+        
+        VStack(alignment: .leading) {
+            Text(movie.fullTitle)
+                .bold()
+            Text("Rating: \(movie.imDbRating)")
+            Text(movie.crew)
+        }
+        .padding(12.0)
     }
 }

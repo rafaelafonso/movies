@@ -22,7 +22,7 @@ struct MovieImageView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .onReceive(imageLoader.didChange) { data in
-                self.image = UIImage(data: data) ?? UIImage()
+                self.image = UIImage(data: data) ?? UIImage(contentsOfFile: "NoImage")!
             }
     }
 }
