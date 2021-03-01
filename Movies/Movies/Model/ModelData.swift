@@ -6,9 +6,13 @@
 //
 
 import Foundation
+//import Combine
 
-private let api = "https://imdb-api.com/en/API/Top250Movies/k_x3hy019r"
-var movies: [Movie] = load(api)
+class ModelData: ObservableObject {
+    
+    @Published var movies: [Movie] = load("https://imdb-api.com/en/API/Top250Movies/k_x3hy019r")
+
+}
 
 func load<T: Decodable>(_ api: String) -> T {
     let itemsData: Data
