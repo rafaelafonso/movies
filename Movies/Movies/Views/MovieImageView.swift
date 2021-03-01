@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct MovieImageView: View {
+    
+    @ObservedObject var imageLoader: ImageLoader
+    @State var image: UIImage = UIImage()
+    
+    init(withImage imageString: String) {
+        imageLoader = ImageLoader(string: imageString)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        Image(uiImage: image)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .onReceive(imageLoader.didChange) { data in
+                self.image = UIImage(data: data) ?? UIImage()
+            }
     }
 }
 
-struct MovieImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieImageView()
-    }
-}

@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct MovieCellView: View {
+    var movie: Movie
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct MovieCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieCellView()
+        HStack {
+            MovieImageView(withImage: movie.image)
+                .padding(8.0)
+                .frame(width: 100, height: 100)
+                
+            VStack(alignment: .leading) {
+                Text(movie.fullTitle)
+                    .bold()
+                Text("Rating: \(movie.imDbRating)")
+            }
+        }
     }
 }
